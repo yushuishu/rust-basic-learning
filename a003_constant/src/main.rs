@@ -5,4 +5,8 @@ const SECOND_DAY:usize = 24 * SECOND_HOURS;
 fn main() {
     println!("SECOND_HOURS:{SECOND_HOURS}");
     println!("SECOND_DAY:{SECOND_DAY}");
+
+    const INFO:&str = "hello world";
+    println!("INFO:{INFO}");
+    
 }
