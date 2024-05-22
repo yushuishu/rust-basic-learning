@@ -7,6 +7,8 @@
 // 动态数组：Vec向量，可存储同一类型的多个值，容量可变
 // 哈希表：存储key-value映射关系
 
+use std::vec;
+
 // ==================================================== 复合类型
 // 元祖：固定（元素）长度的列表
 // 结构体：struct关键字，积类型
@@ -59,6 +61,16 @@ fn simple_number() {
     let f1: f32 = 1.23234;
     let f2: f64 = 9.8888;
     println!("Float are {:.2} {:.2}", f1, f2);
+    // 冒号:用于引入格式化选项，这些选项可以控制输出的格式。在{:.2}中，冒号:后面的部分是格式化指令，它告诉Rust如何格式化紧随其后的参数
+    // 具体来说，{:.2}中的.2表示小数点后保留两位数字。这里的冒号是必需的，因为它标志着格式化选项的开始。如果没有冒号，Rust将不会识别.2作为格式化指令，而是将其视为普通的文本
+    // 冒号还可以用于其他格式化选项:
+    // {:08}：将整数格式化为8位宽，不足的部分用0填充。
+    // {:#010x}：将整数格式化为10位宽的十六进制数，不足的部分用0填充，并在前面加上0x。
+    // {:>10}：将字符串右对齐，总宽度为10个字符。
+    // {:<10}：将字符串左对齐，总宽度为10个字符。
+
+    // 例如，{:08.2}可以用来格式化浮点数，使其总宽度为8位，小数点后保留两位，不足的部分用0填充。
+
 
 }
 
@@ -148,6 +160,7 @@ fn simple_string() {
     ";
     println!("换行写：{}", default_crlf_str);
 
+    // {:?} 用于调试输出，需要Debug trait，而{}用于常规输出，依赖于Display trait，数组类型默认并不实现Display trait
     // 字节串的类型是字节的数组，而不是字符串了
     let bytestring: &[u8; 21] = b"this is a byte string";
     println!("A byte string: {:?}", bytestring);
@@ -163,10 +176,77 @@ fn simple_string() {
 }
 
 fn simple_array() {
+    // Rust数组是 array 类型，用于存储同一类型的多个值。数组表示成[T; N]，由中括号括起来，中间用分号隔开，分号前面表示类型，分号后面表示数组长度。
+    // Rust数组是固定长度的，也就是说在编译阶段就能知道它占用的字节数，并且在运行阶段，不能改变它的长度（尺寸）
+    // Rust中区分固定尺寸数组和动态数组，适应不同的场合，固定尺寸的数据类型是可以直接放栈上的，创建和回收都比在堆上动态分配的动态数组性能要好。
+    let a = [1, 2, 3, 4, 5];
+    println!("{:?}", a);
 
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    println!("{:?}", months);
+
+    // 数组的访问，可以用下标索引。
+    println!("a[1]获取的值为：{}", a[1]);
+    println!("months[11]获取的值为：{}", months[11]);
+
+    // 下标索引越界，无法通过编译：index out of bounds: the length is 5 but the index is 5
+    //let b = a[5];
+    //println!("a[5]的值为：{}", b);
+}
+
+fn simple_vector() {
+    // Rust 中的动态数组类型是 Vec（Vector），也就是向量，中文翻译成动态数组。它用来存储同一类型的多个值，容量可在程序运行的过程中动态地扩大或缩小
+    let v:Vec<i32> = Vec::new();
+    println!("new初始化动态数组：{:?}", v);
+    let v = vec![1, 2, 3];
+    println!("vec初始化动态数组：{:?}", v);
+    let mut v = Vec::new();
+    println!("可变动态添加前：{:?}", v);
+    v.push(5);
+    v.push(6);
+    v.push(7);
+    println!("可变动态添加后：{:?}", v);
+
+    // 动态数组可以用下标进行索引访问
+    let s1 = String::from("superman 1");
+    let s2 = String::from("superman 2");
+    let s3 = String::from("superman 3");
+    let s4 = String::from("superman 4");
+    let s5 = String::from("superman 5");
+
+    let v = vec![s1, s2, s3, s4, s5];
+    println!("动态数组下标访问v[1]：{:?}", v[1]);
+
+    // 下标索引越界，编译通过，运行期间报错：error: process didn't exit successfully: `target\debug\a004_data-types.exe` (exit code: 101)
+    //println!("动态数组下标索引越界访问v[5]：{:?}", v[5]);
 
 }
 
-fn simple_vector() {}
+fn simple_hashMap() {
+    // 哈希表是一种常见的结构，用于存储 Key-Value 映射关系，基本在各种语言中都有内置提供。
+    // Rust 中的哈希表类型为 HashMap。对一个 HashMap 结构来说，Key 要求是同一种类型，比如是字符串就统一用字符串，是数字就统一用数字。Value 也是一样，要求是同一种类型。Key 和 Value 的类型不需要相同。
 
-fn simple_hashMap() {}
+    // 要使用HashMap，必须先引入std::collections::HashMap模块
+    use std::collections::HashMap;
+
+    // 1、使用new函数创建一个新的、空的HashMap
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    println!("scores：{:?}", scores);
+
+    // 2、新建带有元素的HashMap
+    // 通过传入一个键值对的集合（比如：数组、切片或迭代器），我们可以在创建HashMap的同时初始化它。
+    // 这可以通过collect方法来实现，它通常与vec!宏或数组字面量一起使用，以创建包含(key, value)元组的集合。
+    // 首先创建一个HashMap，它的键是String类型，值是i32类型。
+    // 然后，我们使用vec!宏创建了一个包含三个(key, value)元组的向量，并使用into_iter方法将其转换为迭代器。
+    // 最后，我们使用collect方法将其收集到一个HashMap中。
+    let mut scores:HashMap<String, i32> = vec![(String::from("Blue"), 20), (String::from("Yellow"), 60)].into_iter().collect();
+    println!("scores：{:?}", scores);
+
+    // HashMap::from是一个创建HashMap的便捷方法，主要用于从实现了IntoIterator特征且迭代器产出元组 (K, V) 的类型创建一个HashMap。
+    let scores_init = [(String::from("Blue"), 20), (String::from("Yellow"), 60)];
+    let scores = HashMap::from(scores_init);
+    println!("scores：{:?}", scores);
+
+}
