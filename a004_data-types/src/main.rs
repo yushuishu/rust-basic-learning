@@ -27,7 +27,13 @@ fn main() {
     println!("---------------------------------- simple_vector");
     simple_vector();
     println!("---------------------------------- simple_hashMap");
-    simple_hashMap();
+    simple_hash_map();
+    println!("---------------------------------- simple_tup");
+    simple_tup();
+    println!("---------------------------------- simple_struct");
+    simple_struct();
+    println!("---------------------------------- simple_enum");
+    simple_enum();
 }
 
 
@@ -222,18 +228,27 @@ fn simple_vector() {
 
 }
 
-fn simple_hashMap() {
+fn simple_hash_map() {
+    // 哈希表能从一个键索引到一个值，所以应用场景非常广泛。具体的详细，查看HashMap工程模块。
+    let mut colors = HashMap::new();
+    colors.insert(String::from("Red"), 10);
+    colors.insert(String::from("Green"), 10);
+    colors.insert(String::from("Blue"), 50);
+    println!("scores：{:?}", colors);
+
+    
     // 哈希表是一种常见的结构，用于存储 Key-Value 映射关系，基本在各种语言中都有内置提供。
     // Rust 中的哈希表类型为 HashMap。对一个 HashMap 结构来说，Key 要求是同一种类型，比如是字符串就统一用字符串，是数字就统一用数字。Value 也是一样，要求是同一种类型。Key 和 Value 的类型不需要相同。
 
-    // 要使用HashMap，必须先引入std::collections::HashMap模块
+    // 要使用HashMap，必须先引入std::collections::HashMap模块（也可以在函数外层）
     use std::collections::HashMap;
 
     // 1、使用new函数创建一个新的、空的HashMap
-    let mut scores = HashMap::new();
-    scores.insert(String::from("Blue"), 10);
-    scores.insert(String::from("Yellow"), 50);
-    println!("scores：{:?}", scores);
+    let mut colors = HashMap::new();
+    colors.insert(String::from("Red"), 10);
+    colors.insert(String::from("Green"), 10);
+    colors.insert(String::from("Blue"), 50);
+    println!("scores：{:?}", colors);
 
     // 2、新建带有元素的HashMap
     // 通过传入一个键值对的集合（比如：数组、切片或迭代器），我们可以在创建HashMap的同时初始化它。
@@ -241,12 +256,88 @@ fn simple_hashMap() {
     // 首先创建一个HashMap，它的键是String类型，值是i32类型。
     // 然后，我们使用vec!宏创建了一个包含三个(key, value)元组的向量，并使用into_iter方法将其转换为迭代器。
     // 最后，我们使用collect方法将其收集到一个HashMap中。
-    let mut scores:HashMap<String, i32> = vec![(String::from("Blue"), 20), (String::from("Yellow"), 60)].into_iter().collect();
-    println!("scores：{:?}", scores);
+    let colors:HashMap<String, i32> = vec![(String::from("Red"), 20), (String::from("Green"), 20), (String::from("Blue"), 60)].into_iter().collect();
+    println!("scores：{:?}", colors);
 
     // HashMap::from是一个创建HashMap的便捷方法，主要用于从实现了IntoIterator特征且迭代器产出元组 (K, V) 的类型创建一个HashMap。
-    let scores_init = [(String::from("Blue"), 20), (String::from("Yellow"), 60)];
-    let scores = HashMap::from(scores_init);
-    println!("scores：{:?}", scores);
+    let colors_init = [(String::from("Red"), 100), (String::from("Green"), 100), (String::from("Blue"), 200)];
+    let colors = HashMap::from(colors_init);
+    println!("scores：{:?}", colors);
 
+    // 访问hashmap中的值，使用get方法或get_mut方法，具体取决于是否需要获取值的可变引用
+    let mut colors = HashMap::new();
+    colors.insert(String::from("Red"), 10);
+    colors.insert(String::from("Green"), 10);
+    colors.insert(String::from("Blue"), 50);
+    // 访问值
+    println!("red value is {:?}", colors.get("Red"));
+    println!("green value is {:?}", colors.get("Green"));
+    println!("blue value is {:?}", colors.get("Blue"));
+    // 修改值
+    if let Some(value) = colors.get_mut("Blue") {
+        *value = 100;
+    } else {
+        println!("not found");
+    }
+    println!("修改后的值：{:?}", colors);
+
+    // 根据键是否存在来执行不同的操作（比如：只在键不存在时插入值，或者在键存在时更新值），可以使用entry API，避免了不必要的查找
+    // or_insert方法会在键不存在时插入给定的值，并返回键的值的可变引用
+    colors.entry(String::from("Yellow")).or_insert(200);
+    println!("or_insert方法，添加后的值：{:?}", colors);
+    // and_modify方法会修改现有的值
+    colors.entry(String::from("Yellow")).and_modify(|v| *v *= 2);
+    println!("and_modify方法，修改后的值：{:?}", colors);
+}
+
+
+fn simple_tup() {
+    // 元组是一个固定（元素）长度的列表，每个元素类型可以不一样。用小括号括起来，元素之间用逗号隔开
+    let x = (100, 9.9, "hello rust");
+    // 运算符访问其元素，下标从0开始，注意语法
+    let a = x.0;
+    let b = x.1;
+    let c = x.2;
+    println!("a={} b={} c={}", a, b, c);
+
+    // 与数组的相同点是：它们都是固定元素个数的，在运行时不可伸缩。
+    // 与数组的不同点是：元组的每个元素的类型可以不一样。
+    
+    // 元组在 Rust 中很有用，因为它可以用于函数的返回值，相当于把多个想返回的值捆绑在一起，一次性返回。
+
+
+}
+
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    age: u64,
+}
+fn simple_struct() {
+    // Rust 中使用 struct 关键字来定义结构体
+    let user = User {
+        active: true,
+        username: String::from("root"),
+        email: String::from("123@qq.com"),
+        age: 20,
+    };
+
+    // 结构体（struct）默认情况下不能直接打印，因为Rust是一种类型安全的语言，它要求在打印之前必须明确知道如何格式化输出，具体的详细，查看struct工程模块。
+    println!("active：{}，username：{}，email：{}，age：{}", user.active, user.username, user.email, user.age);
+
+}
+
+enum IpAddrKind {
+    V4,
+    V6,
+}
+fn simple_enum() {
+    // 枚举类型里面的选项叫做此枚举的变体（variants）。变体是其所属枚举类型的一部分。
+    // 与结构体不同，结构体类型是里面的所有字段（所有类型）同时起作用，来产生一个具体的实例，而枚举类型是其中的一个变体起作用，来产生一个具体实例
+    // 学术上，通常把枚举叫作和类型（sum type），把结构体叫作积类型（product type）
+    // 枚举就像一个载体，可以携带任何类型。
+    let ip_four = IpAddrKind::V4;
+    let ip_six = IpAddrKind::V6;
+    
 }
