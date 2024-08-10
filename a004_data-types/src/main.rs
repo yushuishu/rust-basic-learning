@@ -322,7 +322,7 @@ fn simple_struct() {
         email: String::from("123@qq.com"),
         age: 20,
     };
-
+ 
     // 结构体（struct）默认情况下不能直接打印，因为Rust是一种类型安全的语言，它要求在打印之前必须明确知道如何格式化输出，具体的详细，查看struct工程模块。
     println!("active：{}，username：{}，email：{}，age：{}", user.active, user.username, user.email, user.age);
 
