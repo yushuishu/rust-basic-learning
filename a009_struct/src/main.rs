@@ -46,8 +46,10 @@ fn named_struct() {
         email: String::from("another@example.com"),
         ..user1    // 注意这里，直接用 ..user1
     };
+    println!("{:?}", user2);
 }
 // 用户信息，完全由 4 个基础类型的字段组合而成。User 的实例化需要这 4 个字段同时起作用，缺一不可
+#[derive(Debug)]
 struct User {
     // bool 类型，表示这个用户是否是激活状态
     active: bool,
@@ -74,18 +76,23 @@ struct Class {
 fn tuple_struct() {
     // 表示颜色RGB的值
     let black = Color(0, 0, 0);
+    println!("black: {:?}", black);
     // 表示点位xyz
     let origin = Point(0, 0, 0);
+    println!("origin: {:?}", origin);
 }
+#[derive(Debug)]
 struct Color(i32, i32, i32);
+#[derive(Debug)]
 struct Point(i32, i32, i32);
 
 fn unit_struct() {
     // 单元结构体就是只有一个类型名字，没有任何字段的结构体，它就相当于定义了一种类型，它的名字就是一种信息，有类型名就可以进行实例化，承载很多东西
     // 这也是做了实例化操作
     let module = ArticleModule;
-
+    println!("module: {:?}", module);
 }
+#[derive(Debug)]
 struct ArticleModule;
 
 
@@ -102,7 +109,7 @@ fn ownership_partial_move() {
 
     // 这里发生了 partial_move
     let email = user3.email;
-
+    println!("{}", email);
     // 这一句无法通过编译，提示如下
     // error[E0382]: borrow of partially moved value: `user3`
     // --> src\main.rs:100:22
