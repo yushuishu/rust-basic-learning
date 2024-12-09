@@ -337,7 +337,7 @@ fn simple_enum() {
     // 与结构体不同，结构体类型是里面的所有字段（所有类型）同时起作用，来产生一个具体的实例，而枚举类型是其中的一个变体起作用，来产生一个具体实例
     // 学术上，通常把枚举叫作和类型（sum type），把结构体叫作积类型（product type）
     // 枚举就像一个载体，可以携带任何类型。
-    let ip_four = IpAddrKind::V4;
-    let ip_six = IpAddrKind::V6;
+    let _ip_four = IpAddrKind::V4;
+    let _ip_six = IpAddrKind::V6;
     
 }

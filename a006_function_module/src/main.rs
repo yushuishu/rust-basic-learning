@@ -21,12 +21,12 @@ fn main() {
     // 比如，闭包 add_v2 捕获了 main 函数中的局部变量 a 来使用，但是函数 add_v1 就没有这个能力。
     let a = 10u32;
     //fn add_v1(x) -> u32 {x + a} //（error[E0434]: can't capture dynamic environment in a fn item）
-    let _add_v2 = |x| -> u32 {x + a};
+    let add_v2 = |x| -> u32 {x + a};
 
     //let result1 = _add_v1(5); //调用函数
-    let result2 = _add_v2(5); //调用闭包
+    let result2 = add_v2(5); //调用闭包
 
-    println!("{}", result2);
+    println!("调用闭包结算结果：{}", result2);
 
     
     // 模块目录结构
@@ -59,6 +59,7 @@ mod tests {
     fn it_works() {
         // 调用被测试的函数或功能
         let result = foo();
+        println!("foo result: {result}");
         // 断言
         assert_eq!(result, 10u32);
     }
