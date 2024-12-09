@@ -1,0 +1,72 @@
+[package]
+name = "a011_option_and_result"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+
+
+[[bin]]
+name = "option_map"
+path = "src/option_common_api/option_map.rs"
+
+[[bin]]
+name = "option_cloned"
+path = "src/option_common_api/option_cloned.rs"
+
+[[bin]]
+name = "option_is_some"
+path = "src/option_common_api/option_is_some.rs"
+
+[[bin]]
+name = "option_is_none"
+path = "src/option_common_api/option_is_none.rs"
+
+[[bin]]
+name = "option_as_ref"
+path = "src/option_common_api/option_as_ref.rs"
+
+[[bin]]
+name = "option_as_mut"
+path = "src/option_common_api/option_as_mut.rs"
+
+[[bin]]
+name = "option_take"
+path = "src/option_common_api/option_take.rs"
+
+[[bin]]
+name = "option_replace"
+path = "src/option_common_api/option_replace.rs"
+
+[[bin]]
+name = "option_and_then"
+path = "src/option_common_api/option_and_then.rs"
+
+[[bin]]
+name = "result_map"
+path = "src/result_common_api/result_map.rs"
+
+[[bin]]
+name = "result_is_ok"
+path = "src/result_common_api/result_is_ok.rs"
+
+[[bin]]
+name = "result_is_err"
+path = "src/result_common_api/result_is_err.rs"
+
+[[bin]]
+name = "result_as_ref"
+path = "src/result_common_api/result_as_ref.rs"
+
+[[bin]]
+name = "result_as_mut"
+path = "src/result_common_api/result_as_mut.rs"
+
+[[bin]]
+name = "result_and_then"
+path = "src/result_common_api/result_and_then.rs"
+
+[[bin]]
+name = "result_map_err"
+path = "src/result_common_api/result_map_err.rs"
