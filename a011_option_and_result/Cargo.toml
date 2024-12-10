@@ -70,3 +70,28 @@ path = "src/result_common_api/result_and_then.rs"
 [[bin]]
 name = "result_map_err"
 path = "src/result_common_api/result_map_err.rs"
+
+[[bin]]
+name = "to_result"
+path = "src/convert/to_result.rs"
+
+[[bin]]
+name = "to_option"
+path = "src/convert/to_option.rs"
+
+
+[[bin]]
+name = "iter_next"
+path = "src/iter/iter_next.rs"
+
+[[bin]]
+name = "three_kinds_iter"
+path = "src/iter/three_kinds_iter.rs"
+
+[[bin]]
+name = "collection_ownership"
+path = "src/iter/collection_ownership.rs"
+
+[[bin]]
+name = "for_principle"
+path = "src/iter/for_principle.rs"

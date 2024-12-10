@@ -25,6 +25,22 @@ fn main() {
 
     // Result方法：map()、is_ok()、is_err()、as_ref()、as_mut()、and_then()、map_err()
     // src/result_common_api/**
+
+
+    // Option 与 Result 的相互转换
+    // 转换的时候需要注意，Result 比 Option 多一个类型参数，所以它带的信息比 Option 多一份，因此核心要点就是要注意信息的添加与抛弃。
+    // src/convert/**
+
+
+    // 迭代器
+    // 是对一个集合类型进行遍历。比如对 Vec、对 HashMap 等进行遍历。使用迭代器有一些好处，比如：
+    //      按需使用，不需要把目标集合一次性全部加载到内存，使用一点加载一点
+    //      惰性计算，可以用来表达无限区间，比如第一讲我们说的 range，可以表达 1 到无限这个集合，这种在其他有些语言中很难表达
+    //      可以安全地访问边界，不需要使用有访问风险的下标操作符
+    // src/iter/iter_next.rs
+    // src/iter/three_kinds_iter.rs
+    // src/iter/collection_ownership.rs
+    // src/iter/for_principle.rs
 }
 
 fn test_expect() {
